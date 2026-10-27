@@ -39,8 +39,14 @@
             margin-top: 10px;
         }
         .data-url-container {
-            max-width: 100%; /* Allow the container to grow with its parent */
-            overflow-x: auto; /* Enable horizontal scrolling if needed */
+            max-width: 100%;
+            overflow-x: auto;
+        }
+        .data-url {
+            max-width: 100%;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            white-space: pre-wrap;
         }
     </style>
 </head>
@@ -49,7 +55,6 @@
     <h1>Data URL Generator</h1>
     <p>Enter your HTML code below:</p>
     <textarea id="htmlCode" oninput="generateDataUrl()"></textarea>
-    <!-- Added a container for the data URL -->
     <div class="data-url-container">
         <p id="dataUrl" class="data-url"></p>
     </div>
@@ -61,13 +66,12 @@
         var htmlCode = document.getElementById('htmlCode').value;
         var encodedHtml = encodeURIComponent(htmlCode);
         var dataUrl = 'data:text/html;charset=utf-8,' + encodedHtml;
-        document.getElementById('dataUrl').innerText = dataUrl;
-        // Ensure copy button is enabled after generating data URL
+        document.getElementById('dataUrl').textContent = dataUrl;
         document.getElementById('copyButton').disabled = false;
     }
 
     function copyToClipboard() {
-        var dataUrl = document.getElementById('dataUrl').innerText;
+        var dataUrl = document.getElementById('dataUrl').textContent;
         var tempInput = document.createElement('input');
         tempInput.value = dataUrl;
         document.body.appendChild(tempInput);
